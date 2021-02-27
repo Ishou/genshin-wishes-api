@@ -14,6 +14,8 @@ import java.util.Date;
 public class WishMapper {
 
     public WishDTO toDto(Wish wish) {
+        if(wish == null) return null;
+
         WishDTO wishDTO = new WishDTO();
 
         wishDTO.setId(wish.getId());

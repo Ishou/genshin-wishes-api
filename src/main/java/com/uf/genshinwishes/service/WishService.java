@@ -147,10 +147,12 @@ public class WishService {
     }
 
     public List<WishDTO> findByUserAndBannerType(User user, BannerType bannerType, Integer page, WishFilterDTO filters) {
-        return this.wishRepository.findAll(
+        List<Wish> wishes = this.wishRepository.findAll(
             new WishSpecification(user, bannerType, filters),
             PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "time", "id"))
-        ).getContent().stream().map(wishMapper::toDto).collect(Collectors.toList());
+        ).getContent();
+
+        return wishes.stream().map(wishMapper::toDto).collect(Collectors.toList());
     }
 
     public Long countAllByUserAndGachaType(User user, BannerType bannerType, WishFilterDTO filters) {
